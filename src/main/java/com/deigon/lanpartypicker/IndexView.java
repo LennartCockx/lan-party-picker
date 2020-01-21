@@ -11,33 +11,21 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.PWA;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Route("")
-@PWA(name = "Vaadin Application",
-        shortName = "Vaadin App",
-        description = "This is an example Vaadin application.",
-        enableInstallPrompt = false)
+@PWA(name = "Vaadin Application", shortName = "Vaadin App", description = "This is an example Vaadin application.", enableInstallPrompt = false)
 public class IndexView extends AppLayout {
 
-    public IndexView() {
+    public IndexView(LanPartyRepository repository) {
         Image img = new Image("icons/lan-party-logo.png", "LanParty Logo");
         img.setHeight("44px");
         addToNavbar(img);
 
         Tab home = new Tab("Upcoming");
-        LanParty sampleParty1 = new LanParty();
-        sampleParty1.setName("Old Year Mini-LAN");
-        sampleParty1.setDescription("Three people, Three games. A short LAN Party to end 2019");
-        LanParty sampleParty2 = new LanParty();
-        sampleParty2.setName("I-Got-A-New-Gaming-PC LAN");
-        sampleParty2.setDescription("Time to play some games with this beast. Februari 2020");
-        List<LanParty> lanParties = List.of(sampleParty1, sampleParty2);
-
-        Component homePage = new LanPartiesOverview(lanParties);
+        Component homePage = new LanPartiesOverview(repository.getAllLanParties());
 
         Tab about = new Tab("About");
         Div aboutPage = new Div();
