@@ -3,9 +3,11 @@ package com.deigon.lanpartypicker.domain;
 import com.vaadin.flow.component.html.Image;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 public class LanParty {
 
+    private UUID uuid;
     private String name;
     private LocalDate date;
     private Image image;
@@ -54,5 +56,13 @@ public class LanParty {
         image.setHeight("44px");
         image.setWidth("44px");
         return image;
+    }
+
+    public UUID getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(UUID uuid) {
+        this.uuid = uuid;
     }
 }
