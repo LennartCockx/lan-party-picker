@@ -4,6 +4,7 @@ import com.deigon.lanpartypicker.domain.LanParty;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.UUID;
 
 @Repository
 public class LanPartyRepository {
@@ -16,5 +17,21 @@ public class LanPartyRepository {
         sampleParty2.setDescription("Time to play some games with this beast. Februari 2020");
 
         return List.of(sampleParty1, sampleParty2);
+    }
+
+    public LanParty getLanPartyByUUID(UUID uuid) {
+        if (uuid.equals(UUID.fromString("b199ae66-f554-4726-ad04-b7f7caa1c959"))){
+            LanParty sampleParty1 = new LanParty();
+            sampleParty1.setName("Old Year Mini-LAN");
+            sampleParty1.setDescription("Three people, Three games. A short LAN Party to end 2019");
+            return sampleParty1;
+        } else if (uuid.equals(UUID.fromString("a0a3c168-436c-4394-8f1a-32af10fdcc72"))){
+            LanParty sampleParty2 = new LanParty();
+            sampleParty2.setName("I-Got-A-New-Gaming-PC LAN");
+            sampleParty2.setDescription("Time to play some games with this beast. Februari 2020");
+            return sampleParty2;
+        } else {
+            return null;
+        }
     }
 }

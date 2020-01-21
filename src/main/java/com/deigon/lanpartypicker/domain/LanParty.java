@@ -48,4 +48,11 @@ public class LanParty {
     public String getDescription() {
         return description;
     }
+
+    public Image getImageSmall() {
+        Image image = getImage();
+        image.setHeight("44px");
+        image.setWidth("44px");
+        return image;
+    }
 }
