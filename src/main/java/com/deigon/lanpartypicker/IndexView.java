@@ -29,8 +29,7 @@ public class IndexView extends AppLayout {
         addToNavbar(img);
 
         Tab home = new Tab("Upcoming");
-        Div homePage = new Div();
-        homePage.add(new H1("Welcome to the upcoming lan parties page!"));
+        Component homePage = new LanPartiesOverview();
 
         Tab about = new Tab("About");
         Div aboutPage = new Div();
