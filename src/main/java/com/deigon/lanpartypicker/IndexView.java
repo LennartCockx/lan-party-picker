@@ -28,27 +28,33 @@ public class IndexView extends AppLayout {
         img.setHeight("44px");
         addToNavbar(img);
 
-        Tab home = new Tab("Home");
+        Tab home = new Tab("Upcoming");
         Div homePage = new Div();
-        homePage.add(new H1("Welcome to the home page!"));
+        homePage.add(new H1("Welcome to the upcoming lan parties page!"));
 
         Tab about = new Tab("About");
         Div aboutPage = new Div();
-        aboutPage.add(new Button("click here"));
+        aboutPage.add(new Button("placeholder"));
         aboutPage.setVisible(false);
+
+        Tab profile = new Tab("Profile");
+        Div profilePage = new Div();
+        profilePage.add(new Button("placeholder"));
+        profilePage.setVisible(false);
 
         HashMap<Tab, Component> tabPageMapping = new HashMap<>();
         tabPageMapping.put(home,homePage);
+        tabPageMapping.put(profile,profilePage);
         tabPageMapping.put(about,aboutPage);
 
-        Tabs tabs = new Tabs(home, about);
+        Tabs tabs = new Tabs(home, profile, about);
         tabs.setOrientation(Tabs.Orientation.HORIZONTAL);
         addToNavbar(tabs);
 
         Set<Component> activePage = Stream.of(homePage)
                 .collect(Collectors.toSet());
 
-        setContent(new Div(homePage,aboutPage));
+        setContent(new Div(homePage,profilePage, aboutPage));
 
         tabs.addSelectedChangeListener((event)->{
             activePage.forEach((page)->page.setVisible(false));
