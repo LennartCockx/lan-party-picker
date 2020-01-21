@@ -24,7 +24,7 @@ public class IndexView extends AppLayout {
     public IndexView(LanPartyRepository repository) {
         Image img = new Image("icons/lan-party-logo.png", "LanParty Logo");
         img.setHeight("44px");
-        addToNavbar(img);
+        addToNavbar( img);
 
         Tab home = new Tab("Upcoming");
         Component homePage = new LanPartiesOverview(repository.getAllLanParties());
