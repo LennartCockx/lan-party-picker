@@ -1,5 +1,7 @@
 package com.deigon.lanpartypicker;
 
+import com.deigon.lanpartypicker.components.LanPartiesOverview;
+import com.deigon.lanpartypicker.repositories.LanPartyRepository;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.button.Button;

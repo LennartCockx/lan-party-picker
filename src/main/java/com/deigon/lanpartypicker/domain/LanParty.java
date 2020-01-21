@@ -1,4 +1,4 @@
-package com.deigon.lanpartypicker;
+package com.deigon.lanpartypicker.domain;
 
 import com.vaadin.flow.component.html.Image;
 

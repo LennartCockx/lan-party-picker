@@ -1,5 +1,6 @@
-package com.deigon.lanpartypicker;
+package com.deigon.lanpartypicker.components;
 
+import com.deigon.lanpartypicker.domain.LanParty;
 import com.github.appreciated.card.RippleClickableCard;
 import com.github.appreciated.card.content.IconItem;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;

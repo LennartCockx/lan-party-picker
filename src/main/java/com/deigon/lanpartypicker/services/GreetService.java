@@ -1,4 +1,4 @@
-package com.deigon.lanpartypicker;
+package com.deigon.lanpartypicker.services;
 
 import java.io.Serializable;
 

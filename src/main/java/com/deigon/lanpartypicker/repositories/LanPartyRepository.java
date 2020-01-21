@@ -1,5 +1,6 @@
-package com.deigon.lanpartypicker;
+package com.deigon.lanpartypicker.repositories;
 
+import com.deigon.lanpartypicker.domain.LanParty;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
