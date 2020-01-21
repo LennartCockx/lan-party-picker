@@ -4,7 +4,6 @@ import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.tabs.Tab;
 import com.vaadin.flow.component.tabs.Tabs;
@@ -12,6 +11,7 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.PWA;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -29,7 +29,15 @@ public class IndexView extends AppLayout {
         addToNavbar(img);
 
         Tab home = new Tab("Upcoming");
-        Component homePage = new LanPartiesOverview();
+        LanParty sampleParty1 = new LanParty();
+        sampleParty1.setName("Old Year Mini-LAN");
+        sampleParty1.setDescription("Three people, Three games. A short LAN Party to end 2019");
+        LanParty sampleParty2 = new LanParty();
+        sampleParty2.setName("I-Got-A-New-Gaming-PC LAN");
+        sampleParty2.setDescription("Time to play some games with this beast. Februari 2020");
+        List<LanParty> lanParties = List.of(sampleParty1, sampleParty2);
+
+        Component homePage = new LanPartiesOverview(lanParties);
 
         Tab about = new Tab("About");
         Div aboutPage = new Div();
