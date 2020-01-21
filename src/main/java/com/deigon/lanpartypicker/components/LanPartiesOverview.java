@@ -13,6 +13,10 @@ public class LanPartiesOverview extends VerticalLayout {
         setJustifyContentMode(JustifyContentMode.BETWEEN);
         setDefaultHorizontalComponentAlignment(Alignment.STRETCH);
 
-        lanParties.forEach((lanParty -> add(new RippleClickableCard(new IconItem(lanParty.getImage(),lanParty.getName(),lanParty.getDescription())))));
+        lanParties.forEach((lanParty -> {
+            RippleClickableCard rippleClickableCard = new RippleClickableCard(new IconItem(lanParty.getImage(), lanParty.getName(), lanParty.getDescription()));
+            rippleClickableCard.addClickListener((event)-> this.getUI().ifPresent(ui -> ui.navigate("lanParty/"+lanParty.getUuid())));
+            add(rippleClickableCard);
+        }));
     }
 }

@@ -53,8 +53,8 @@ public class LanParty {
 
     public Image getImageSmall() {
         Image image = getImage();
+        image.setSizeUndefined();
         image.setHeight("44px");
-        image.setWidth("44px");
         return image;
     }
 
