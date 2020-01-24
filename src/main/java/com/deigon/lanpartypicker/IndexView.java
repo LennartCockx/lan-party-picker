@@ -1,7 +1,7 @@
 package com.deigon.lanpartypicker;
 
 import com.deigon.lanpartypicker.components.LanPartiesOverview;
-import com.deigon.lanpartypicker.components.MainContainer;
+import com.deigon.lanpartypicker.components.base.MainContainer;
 import com.deigon.lanpartypicker.repositories.LanPartyRepository;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.applayout.AppLayout;
@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Route("")
-@PWA(name = "Vaadin Application", shortName = "Vaadin App", description = "This is an example Vaadin application.", enableInstallPrompt = false)
+@PWA(name = "Lan Party", shortName = "Lan Party App", description = "Find a date, select games, get a party going!", enableInstallPrompt = false)
 public class IndexView extends AppLayout {
 
     public IndexView(LanPartyRepository repository) {

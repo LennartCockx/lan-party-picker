@@ -1,8 +1,7 @@
 package com.deigon.lanpartypicker;
 
-import com.deigon.lanpartypicker.components.LanPartiesOverview;
 import com.deigon.lanpartypicker.components.LanPartyDetailOverview;
-import com.deigon.lanpartypicker.components.MainContainer;
+import com.deigon.lanpartypicker.components.base.MainContainer;
 import com.deigon.lanpartypicker.domain.LanParty;
 import com.deigon.lanpartypicker.repositories.LanPartyRepository;
 import com.vaadin.flow.component.Component;
