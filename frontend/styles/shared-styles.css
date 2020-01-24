@@ -59,3 +59,7 @@
   transition: 0s;
 }
 
+.hover:hover {
+  background-color: #ebebeb;
+}
+

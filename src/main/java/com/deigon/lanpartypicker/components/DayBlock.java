@@ -15,9 +15,10 @@ public class DayBlock extends FullWidthDiv {
     public DayBlock(LocalDate localDate) {
         LargeTitle day = new LargeTitle(Integer.toString(localDate.getDayOfMonth()));
         SmallText month = new SmallText(localDate.format(DateTimeFormatter.ofPattern("MMM")));
+
         FullWidthDiv fullWidthDiv = new FullWidthDiv(day, month);
         fullWidthDiv.addClickListener((event -> this.toggleSelected()));
-        setClassName("ripple");
+        setClassName("ripple hover");
         add(fullWidthDiv);
     }
 
