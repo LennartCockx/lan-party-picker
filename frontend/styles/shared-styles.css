@@ -25,3 +25,8 @@
   width: 100%;
 }
 
+.smallText{
+  padding: 4px 4px 4px 16px;
+  font-family: Bahnschrift, sans-serif;
+}
+
