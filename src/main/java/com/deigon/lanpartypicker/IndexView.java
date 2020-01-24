@@ -1,6 +1,7 @@
 package com.deigon.lanpartypicker;
 
 import com.deigon.lanpartypicker.components.LanPartiesOverview;
+import com.deigon.lanpartypicker.components.MainContainer;
 import com.deigon.lanpartypicker.repositories.LanPartyRepository;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.applayout.AppLayout;
@@ -24,10 +25,10 @@ public class IndexView extends AppLayout {
     public IndexView(LanPartyRepository repository) {
         Image img = new Image("icons/lan-party-logo.png", "LanParty Logo");
         img.setHeight("44px");
-        addToNavbar( img);
+        addToNavbar(img);
 
         Tab home = new Tab("Upcoming");
-        Component homePage = new LanPartiesOverview(repository.getAllLanParties());
+        Component homePage = new MainContainer(new LanPartiesOverview(repository.getAllLanParties()));
 
         Tab about = new Tab("About");
         Div aboutPage = new Div();
@@ -48,11 +49,8 @@ public class IndexView extends AppLayout {
         tabs.setOrientation(Tabs.Orientation.HORIZONTAL);
         addToNavbar(tabs);
 
-        Set<Component> activePage = Stream.of(homePage)
-                .collect(Collectors.toSet());
-
+        Set<Component> activePage = Stream.of(homePage).collect(Collectors.toSet());
         setContent(new Div(homePage,profilePage, aboutPage));
-
         tabs.addSelectedChangeListener((event)->{
             activePage.forEach((page)->page.setVisible(false));
             activePage.clear();
