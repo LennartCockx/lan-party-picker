@@ -10,3 +10,11 @@
   max-width: 250px;
 }
 
+.largeCenteredTitle{
+  text-align: center;
+  padding: 16px;
+  font-size: xx-large;
+  font-family: Bahnschrift, sans-serif;
+  width: 100%;
+}
+

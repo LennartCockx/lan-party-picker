@@ -43,7 +43,7 @@ public class LanPartyDetailView extends AppLayout implements HasUrlParameter<Str
         addToNavbar(layout);
 
         Tab home = new Tab(lanParty.getName());
-        Component homePage = new MainContainer(new LanPartyDetailOverview());
+        Component homePage = new MainContainer(new LanPartyDetailOverview(lanParty));
         Tab planner = new Tab("Planner");
         Tab games = new Tab("Games");
 
