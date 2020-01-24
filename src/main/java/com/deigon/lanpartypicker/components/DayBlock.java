@@ -10,10 +10,24 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class DayBlock extends FullWidthDiv {
+    private boolean selected;
+
     public DayBlock(LocalDate localDate) {
         LargeTitle day = new LargeTitle(Integer.toString(localDate.getDayOfMonth()));
         SmallText month = new SmallText(localDate.format(DateTimeFormatter.ofPattern("MMM")));
         RippleClickableCard rippleClickableCard = new RippleClickableCard(day, month);
+        rippleClickableCard.addClickListener((event)-> this.toggleSelected());
         add(rippleClickableCard);
+    }
+
+    private void toggleSelected() {
+        this.selected = !this.selected;
+        if (selected){
+            this.getStyle().set("background-color","gray");
+            this.getStyle().set("color","white");
+        } else {
+            this.getStyle().remove("background-color");
+            this.getStyle().set("color", "black");
+        }
     }
 }
