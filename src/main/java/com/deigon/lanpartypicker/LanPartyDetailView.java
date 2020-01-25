@@ -41,17 +41,17 @@ public class LanPartyDetailView extends AppLayout implements HasUrlParameter<Str
         layout.addClickListener((action -> this.getUI().ifPresent((screen)->screen.navigate(""))));
         addToNavbar(layout);
 
-        Tab home = new Tab(lanParty.getName());
+        Tab home = new Tab("Overview");
         Component homePage = new MainContainer(new LanPartyDetailOverview(lanParty));
-        Tab planner = new Tab("Planner");
-        Tab games = new Tab("Games");
+        Tab dates = new Tab("Date Selection");
+        Tab games = new Tab("Game Selection");
 
         HashMap<Tab, Component> tabPageMapping = new HashMap<>();
         tabPageMapping.put(home, homePage);
-        tabPageMapping.put(planner,homePage);
+        tabPageMapping.put(dates,homePage);
         tabPageMapping.put(games,homePage);
 
-        Tabs tabs = new Tabs(home,planner,games);
+        Tabs tabs = new Tabs(home,dates,games);
         addToNavbar(tabs);
 
         Set<Component> activePage = Stream.of(homePage).collect(Collectors.toSet());
