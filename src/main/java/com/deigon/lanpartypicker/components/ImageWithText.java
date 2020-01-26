@@ -6,13 +6,13 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 
 public class ImageWithText extends HorizontalLayout {
     public ImageWithText(Image image, String name, String description) {
+        getStyle().set("cursor","pointer");
         VerticalLayout verticalLayout = new VerticalLayout();
         verticalLayout.setWidthFull();
         verticalLayout.add(new SmallText(name),new SmallText(description));
 
-        setFlexGrow(1,image);
-        verticalLayout.setFlexGrow(9,verticalLayout);
-
+        setFlexGrow(1, image);
+        verticalLayout.setFlexGrow(9, verticalLayout);
         add(image,verticalLayout);
     }
 }
