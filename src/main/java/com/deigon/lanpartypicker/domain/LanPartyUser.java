@@ -1,18 +1,55 @@
 package com.deigon.lanpartypicker.domain;
 
-public class LanPartyUser {
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
-    private String name;
+import java.util.Collection;
 
-    public LanPartyUser(String name) {
-        this.name = name;
+public class LanPartyUser implements UserDetails {
+
+    private String username;
+
+    public LanPartyUser(String username) {
+        this.username = username;
     }
 
-    public String getName() {
-        return name;
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    @Override
+    public String getPassword() {
+        return null;
+    }
+
+    @Override
+    public String getUsername() {
+        return this.username;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return false;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return false;
+    }
+
+    @Override
+    public String toString() {
+        return this.username;
     }
 }
