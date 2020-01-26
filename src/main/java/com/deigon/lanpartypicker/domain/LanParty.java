@@ -3,6 +3,9 @@ package com.deigon.lanpartypicker.domain;
 import com.vaadin.flow.component.html.Image;
 
 import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 public class LanParty {
@@ -12,6 +15,7 @@ public class LanParty {
     private LocalDate date;
     private Image image;
     private String description;
+    private HashMap<LocalDate, Set<LanPartyUser>> usersAvailableForDate = new HashMap<>();
 
     public String getName() {
         return name;
@@ -64,5 +68,28 @@ public class LanParty {
 
     public void setUuid(UUID uuid) {
         this.uuid = uuid;
+    }
+
+    public void addUserForDate(LocalDate day, LanPartyUser lanPartyUser) {
+        if (usersAvailableForDate.containsKey(day)){
+            usersAvailableForDate.get(day).add(lanPartyUser);
+        } else {
+            HashSet<LanPartyUser> users = new HashSet<>();
+            users.add(lanPartyUser);
+            usersAvailableForDate.put(day, users);
+        }
+    }
+
+    public void removeUserForDate(LocalDate day, LanPartyUser user) {
+        if (usersAvailableForDate.containsKey(day)){
+            usersAvailableForDate.get(day).remove(user);
+            if (usersAvailableForDate.get(day).isEmpty()){
+                usersAvailableForDate.remove(day);
+            }
+        }
+    }
+
+    public HashMap<LocalDate, Set<LanPartyUser>> getUsersAvailableForDate() {
+        return usersAvailableForDate;
     }
 }
