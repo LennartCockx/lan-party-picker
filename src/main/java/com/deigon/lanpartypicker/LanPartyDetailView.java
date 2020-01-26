@@ -2,7 +2,6 @@ package com.deigon.lanpartypicker;
 
 import com.deigon.lanpartypicker.components.DayBlock;
 import com.deigon.lanpartypicker.components.LanPartyDetailOverview;
-import com.deigon.lanpartypicker.components.base.MainContainer;
 import com.deigon.lanpartypicker.domain.LanParty;
 import com.deigon.lanpartypicker.domain.LanPartyUser;
 import com.deigon.lanpartypicker.repositories.LanPartyRepository;
@@ -30,6 +29,7 @@ public class LanPartyDetailView extends VerticalLayout implements HasUrlParamete
     public LanPartyDetailView(LanPartyRepository repository, UserRepository userRepository) {
         this.repository = repository;
         this.userRepository = userRepository;
+        setClassName("mainContent");
     }
 
     @Override
@@ -41,7 +41,7 @@ public class LanPartyDetailView extends VerticalLayout implements HasUrlParamete
         HorizontalLayout layout = new HorizontalLayout(imageSmall);
         layout.getStyle().set("cursor","pointer");
         layout.addClickListener((action -> this.getUI().ifPresent((screen)->screen.navigate(""))));
-        Component homePage = new MainContainer(lanPartyDetailOverview);
+        Component homePage = lanPartyDetailOverview;
         add(homePage);
 
         lanPartyDetailOverview.getDateSelection().getDateGrid().addDateAddedListener((dateAdded)->{
