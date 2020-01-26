@@ -76,11 +76,11 @@ public class LanPartyDetailView extends AppLayout implements HasUrlParameter<Str
             DayBlock source = (DayBlock) dateAdded.getSource();
             if (source.isSelected()){
                 lanParty.addUserForDate(source.getDay(), userRepository.getUserByName("Lennart Cockx"));
+                source.updateChosen(lanParty.getNamesForDate(source.getDay()));
             } else {
                 lanParty.removeUserForDate(source.getDay(), userRepository.getUserByName("Lennart Cockx"));
+                source.updateChosen(lanParty.getNamesForDate(source.getDay()));
             }
-
-            System.out.println("test");
         });
     }
 }
