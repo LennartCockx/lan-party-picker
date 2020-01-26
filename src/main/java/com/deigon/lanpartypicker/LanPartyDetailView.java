@@ -5,10 +5,7 @@ import com.deigon.lanpartypicker.components.LanPartyDetailOverview;
 import com.deigon.lanpartypicker.domain.LanParty;
 import com.deigon.lanpartypicker.domain.LanPartyUser;
 import com.deigon.lanpartypicker.repositories.LanPartyRepository;
-import com.deigon.lanpartypicker.repositories.UserRepository;
 import com.vaadin.flow.component.Component;
-import com.vaadin.flow.component.html.Image;
-import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.BeforeEvent;
 import com.vaadin.flow.router.HasUrlParameter;
@@ -35,10 +32,6 @@ public class LanPartyDetailView extends VerticalLayout implements HasUrlParamete
         UUID uuid = UUID.fromString(parameter);
         lanParty = repository.getLanPartyByUUID(uuid);
         lanPartyDetailOverview = new LanPartyDetailOverview(lanParty);
-        Image imageSmall = lanParty.getImageSmall();
-        HorizontalLayout layout = new HorizontalLayout(imageSmall);
-        layout.getStyle().set("cursor","pointer");
-        layout.addClickListener((action -> this.getUI().ifPresent((screen)->screen.navigate(""))));
         Component homePage = lanPartyDetailOverview;
         add(homePage);
 
