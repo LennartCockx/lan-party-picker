@@ -2,7 +2,6 @@ package com.deigon.lanpartypicker.components;
 
 import com.deigon.lanpartypicker.components.base.FullWidthDiv;
 import com.deigon.lanpartypicker.components.base.LargeTitle;
-import com.deigon.lanpartypicker.components.base.MainContainer;
 import com.deigon.lanpartypicker.domain.LanPartyUser;
 
 import java.time.LocalDate;
@@ -19,7 +18,6 @@ public class DateSelection extends FullWidthDiv {
         dateGrid = new DateGrid(selectedDates);
 
         add(dateGrid);
-        add(new MainContainer());
     }
 
     public DateGrid getDateGrid() {
