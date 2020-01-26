@@ -5,8 +5,10 @@ import com.vaadin.flow.component.html.Image;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class LanParty {
 
@@ -91,5 +93,14 @@ public class LanParty {
 
     public HashMap<LocalDate, Set<LanPartyUser>> getUsersAvailableForDate() {
         return usersAvailableForDate;
+    }
+
+    public List<String> getNamesForDate(LocalDate day) {
+        Set<LanPartyUser> lanPartyUsers = usersAvailableForDate.get(day);
+        if (lanPartyUsers ==null){
+            lanPartyUsers = new HashSet<>();
+        }
+
+        return lanPartyUsers.stream().map(LanPartyUser::getName).collect(Collectors.toList());
     }
 }

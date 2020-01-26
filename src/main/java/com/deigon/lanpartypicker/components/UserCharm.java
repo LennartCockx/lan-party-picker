@@ -7,7 +7,7 @@ public class UserCharm extends FullWidthDiv {
         String[] s = person.split(" ");
         StringBuilder initials = new StringBuilder();
         for (String firstLetter : s) {
-            initials.append(firstLetter);
+            initials.append(firstLetter.charAt(0));
         }
         setText(initials.toString().toUpperCase());
     }
