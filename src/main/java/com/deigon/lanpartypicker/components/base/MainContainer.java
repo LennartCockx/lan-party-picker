@@ -11,5 +11,6 @@ public class MainContainer extends Div {
         getStyle().set("padding-left","16px");
         getStyle().set("padding-right","16px");
         getStyle().set("max-width","70em");
+        setWidthFull();
     }
 }

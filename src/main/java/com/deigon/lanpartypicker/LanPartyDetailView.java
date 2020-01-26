@@ -8,24 +8,18 @@ import com.deigon.lanpartypicker.domain.LanPartyUser;
 import com.deigon.lanpartypicker.repositories.LanPartyRepository;
 import com.deigon.lanpartypicker.repositories.UserRepository;
 import com.vaadin.flow.component.Component;
-import com.vaadin.flow.component.applayout.AppLayout;
-import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
-import com.vaadin.flow.component.tabs.Tab;
-import com.vaadin.flow.component.tabs.Tabs;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.BeforeEvent;
 import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.Route;
+import org.springframework.security.core.context.SecurityContextHolder;
 
-import java.util.HashMap;
-import java.util.Set;
 import java.util.UUID;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
-@Route("lanParty")
-public class LanPartyDetailView extends AppLayout implements HasUrlParameter<String> {
+@Route(value = "lanParty", layout = MainView.class)
+public class LanPartyDetailView extends VerticalLayout implements HasUrlParameter<String> {
 
     private LanParty lanParty = new LanParty();
     private LanPartyRepository repository;
@@ -40,7 +34,6 @@ public class LanPartyDetailView extends AppLayout implements HasUrlParameter<Str
 
     @Override
     public void setParameter(BeforeEvent event, String parameter) {
-
         UUID uuid = UUID.fromString(parameter);
         lanParty = repository.getLanPartyByUUID(uuid);
         lanPartyDetailOverview = new LanPartyDetailOverview(lanParty);
@@ -48,39 +41,18 @@ public class LanPartyDetailView extends AppLayout implements HasUrlParameter<Str
         HorizontalLayout layout = new HorizontalLayout(imageSmall);
         layout.getStyle().set("cursor","pointer");
         layout.addClickListener((action -> this.getUI().ifPresent((screen)->screen.navigate(""))));
-        addToNavbar(layout);
-        Tab home = new Tab("Overview");
         Component homePage = new MainContainer(lanPartyDetailOverview);
-        Tab dates = new Tab("Date Selection");
-        Tab games = new Tab("Game Selection");
-
-        HashMap<Tab, Component> tabPageMapping = new HashMap<>();
-        tabPageMapping.put(home, homePage);
-        tabPageMapping.put(dates,homePage);
-        tabPageMapping.put(games,homePage);
-
-        Tabs tabs = new Tabs(home,dates,games);
-        addToNavbar(tabs);
-
-        Set<Component> activePage = Stream.of(homePage).collect(Collectors.toSet());
-        setContent(new Div(homePage));
-        tabs.addSelectedChangeListener((trigger)->{
-            activePage.forEach((page)->page.setVisible(false));
-            activePage.clear();
-            Component component = tabPageMapping.get(trigger.getSelectedTab());
-            component.setVisible(true);
-            activePage.add(component);
-        });
+        add(homePage);
 
         lanPartyDetailOverview.getDateSelection().getDateGrid().addDateAddedListener((dateAdded)->{
             DayBlock source = (DayBlock) dateAdded.getSource();
+            Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             if (source.isSelected()){
-                lanParty.addUserForDate(source.getDay(), userRepository.getUserByName("Lennart Cockx"));
-                source.updateChosen(lanParty.getNamesForDate(source.getDay()));
+                lanParty.addUserForDate(source.getDay(), (LanPartyUser) principal);
             } else {
-                lanParty.removeUserForDate(source.getDay(), userRepository.getUserByName("Lennart Cockx"));
-                source.updateChosen(lanParty.getNamesForDate(source.getDay()));
+                lanParty.removeUserForDate(source.getDay(), (LanPartyUser) principal);
             }
+            source.updateChosen(lanParty.getNamesForDate(source.getDay()));
         });
     }
 }

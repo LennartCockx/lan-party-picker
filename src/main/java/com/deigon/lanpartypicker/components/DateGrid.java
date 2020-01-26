@@ -29,7 +29,7 @@ public class DateGrid extends FullWidthDiv {
                     lanPartyUsers = new HashSet<>();
                 }
 
-                DayBlock dayBlock = new DayBlock(date, lanPartyUsers.stream().map(LanPartyUser::getName).collect(Collectors.toList()));
+                DayBlock dayBlock = new DayBlock(date, lanPartyUsers.stream().map(LanPartyUser::getUsername).collect(Collectors.toList()));
                 dayBlock.addClickListener((event -> fireEvent(new DateAddedEvent(dayBlock, false))));
                 horizontalLayout.addAndExpand(dayBlock);
             }

@@ -101,6 +101,6 @@ public class LanParty {
             lanPartyUsers = new HashSet<>();
         }
 
-        return lanPartyUsers.stream().map(LanPartyUser::getName).collect(Collectors.toList());
+        return lanPartyUsers.stream().map(LanPartyUser::getUsername).collect(Collectors.toList());
     }
 }

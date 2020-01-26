@@ -3,60 +3,17 @@ package com.deigon.lanpartypicker;
 import com.deigon.lanpartypicker.components.LanPartiesOverview;
 import com.deigon.lanpartypicker.components.base.MainContainer;
 import com.deigon.lanpartypicker.repositories.LanPartyRepository;
-import com.vaadin.flow.component.Component;
-import com.vaadin.flow.component.applayout.AppLayout;
-import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.component.html.Image;
-import com.vaadin.flow.component.tabs.Tab;
-import com.vaadin.flow.component.tabs.Tabs;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.server.PWA;
 
-import java.util.HashMap;
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
-@Route("")
-@PWA(name = "Lan Party", shortName = "Lan Party App", description = "Find a date, select games, get a party going!", enableInstallPrompt = false)
-public class IndexView extends AppLayout {
+@Route(value = "",layout = MainView.class)
+public class IndexView extends VerticalLayout {
 
     public IndexView(LanPartyRepository repository) {
-        Image img = new Image("icons/lan-party-logo.png", "LanParty Logo");
-        img.setHeight("44px");
-        addToNavbar(img);
-
-        Tab home = new Tab("Upcoming");
-        Component homePage = new MainContainer(new LanPartiesOverview(repository.getAllLanParties()));
-
-        Tab about = new Tab("About");
-        Div aboutPage = new Div();
-        aboutPage.add(new Button("placeholder"));
-        aboutPage.setVisible(false);
-
-        Tab profile = new Tab("Profile");
-        Div profilePage = new Div();
-        profilePage.add(new Button("placeholder"));
-        profilePage.setVisible(false);
-
-        HashMap<Tab, Component> tabPageMapping = new HashMap<>();
-        tabPageMapping.put(home,homePage);
-        tabPageMapping.put(profile,profilePage);
-        tabPageMapping.put(about,aboutPage);
-
-        Tabs tabs = new Tabs(home, profile, about);
-        tabs.setOrientation(Tabs.Orientation.HORIZONTAL);
-        addToNavbar(tabs);
-
-        Set<Component> activePage = Stream.of(homePage).collect(Collectors.toSet());
-        setContent(new Div(homePage,profilePage, aboutPage));
-        tabs.addSelectedChangeListener((event)->{
-            activePage.forEach((page)->page.setVisible(false));
-            activePage.clear();
-            Component component = tabPageMapping.get(event.getSelectedTab());
-            component.setVisible(true);
-            activePage.add(component);
-        });
+            //todo https://vaadin.com/learn/tutorials/securing-your-app-with-spring-security/form-less
+//            List<SimpleGrantedAuthority> authorities = List.of(new SimpleGrantedAuthority("USER"));
+//            AnonymousAuthenticationToken user = new AnonymousAuthenticationToken("1", new LanPartyUser("Lennart Cockx"), authorities);
+//            authenticationManager.authenticate(user);
+        add(new MainContainer(new LanPartiesOverview(repository.getAllLanParties())));
     }
 }

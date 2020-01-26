@@ -27,7 +27,7 @@ public class UserRepository {
 
     public LanPartyUser getUserByName(String name) {
         for (LanPartyUser user : this.users) {
-            if (user.getName().equals(name)){
+            if (user.getUsername().equals(name)){
                 return user;
             }
         }
