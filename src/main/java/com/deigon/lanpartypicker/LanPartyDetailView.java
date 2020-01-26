@@ -22,13 +22,11 @@ public class LanPartyDetailView extends VerticalLayout implements HasUrlParamete
 
     private LanParty lanParty = new LanParty();
     private LanPartyRepository repository;
-    private UserRepository userRepository;
 
     private LanPartyDetailOverview lanPartyDetailOverview;
 
-    public LanPartyDetailView(LanPartyRepository repository, UserRepository userRepository) {
+    public LanPartyDetailView(LanPartyRepository repository) {
         this.repository = repository;
-        this.userRepository = userRepository;
         setClassName("mainContent");
     }
 
