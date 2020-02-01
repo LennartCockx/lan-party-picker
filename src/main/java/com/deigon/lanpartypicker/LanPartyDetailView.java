@@ -3,7 +3,6 @@ package com.deigon.lanpartypicker;
 import com.deigon.lanpartypicker.components.DayBlock;
 import com.deigon.lanpartypicker.components.LanPartyDetailOverview;
 import com.deigon.lanpartypicker.domain.LanParty;
-import com.deigon.lanpartypicker.domain.LanPartyUser;
 import com.deigon.lanpartypicker.repositories.LanPartyRepository;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;

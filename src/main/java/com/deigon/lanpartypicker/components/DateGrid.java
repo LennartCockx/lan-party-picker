@@ -1,7 +1,6 @@
 package com.deigon.lanpartypicker.components;
 
 import com.deigon.lanpartypicker.components.base.FullWidthDiv;
-import com.deigon.lanpartypicker.domain.LanPartyUser;
 import com.deigon.lanpartypicker.events.DateAddedEvent;
 import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;

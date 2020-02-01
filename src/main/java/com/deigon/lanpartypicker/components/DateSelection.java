@@ -2,7 +2,6 @@ package com.deigon.lanpartypicker.components;
 
 import com.deigon.lanpartypicker.components.base.FullWidthDiv;
 import com.deigon.lanpartypicker.components.base.LargeTitle;
-import com.deigon.lanpartypicker.domain.LanPartyUser;
 import org.springframework.security.core.userdetails.User;
 
 import java.time.LocalDate;
