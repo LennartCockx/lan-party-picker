@@ -1,6 +1,7 @@
 package com.deigon.lanpartypicker.domain;
 
 import com.vaadin.flow.component.html.Image;
+import org.springframework.security.core.userdetails.User;
 
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -17,7 +18,7 @@ public class LanParty {
     private LocalDate date;
     private Image image;
     private String description;
-    private HashMap<LocalDate, Set<LanPartyUser>> usersAvailableForDate = new HashMap<>();
+    private HashMap<LocalDate, Set<User>> usersAvailableForDate = new HashMap<>();
 
     public String getName() {
         return name;
@@ -72,17 +73,17 @@ public class LanParty {
         this.uuid = uuid;
     }
 
-    public void addUserForDate(LocalDate day, LanPartyUser lanPartyUser) {
+    public void addUserForDate(LocalDate day, User lanPartyUser) {
         if (usersAvailableForDate.containsKey(day)){
             usersAvailableForDate.get(day).add(lanPartyUser);
         } else {
-            HashSet<LanPartyUser> users = new HashSet<>();
+            HashSet<User> users = new HashSet<>();
             users.add(lanPartyUser);
             usersAvailableForDate.put(day, users);
         }
     }
 
-    public void removeUserForDate(LocalDate day, LanPartyUser user) {
+    public void removeUserForDate(LocalDate day, User user) {
         if (usersAvailableForDate.containsKey(day)){
             usersAvailableForDate.get(day).remove(user);
             if (usersAvailableForDate.get(day).isEmpty()){
@@ -91,16 +92,16 @@ public class LanParty {
         }
     }
 
-    public HashMap<LocalDate, Set<LanPartyUser>> getUsersAvailableForDate() {
+    public HashMap<LocalDate, Set<User>> getUsersAvailableForDate() {
         return usersAvailableForDate;
     }
 
     public List<String> getNamesForDate(LocalDate day) {
-        Set<LanPartyUser> lanPartyUsers = usersAvailableForDate.get(day);
+        Set<User> lanPartyUsers = usersAvailableForDate.get(day);
         if (lanPartyUsers ==null){
             lanPartyUsers = new HashSet<>();
         }
 
-        return lanPartyUsers.stream().map(LanPartyUser::getUsername).collect(Collectors.toList());
+        return lanPartyUsers.stream().map(User::getUsername).collect(Collectors.toList());
     }
 }

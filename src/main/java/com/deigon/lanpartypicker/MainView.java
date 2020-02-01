@@ -28,7 +28,7 @@ import com.vaadin.flow.server.PWA;
  */
 
 @PWA(name = "LanParty App Starter", shortName = "My Starter Project",
-        backgroundColor = "#227aef", themeColor = "#227aef")
+        backgroundColor = "#227aef", themeColor = "#227aef", enableInstallPrompt = false)
 @CssImport(value = "styles/shared-styles.css")
 @CssImport(value = "styles/vaadin-text-field-styles.css")
 public class MainView extends AppLayout {
@@ -39,6 +39,14 @@ public class MainView extends AppLayout {
         menu = new Tabs();
         menu.setOrientation(Tabs.Orientation.HORIZONTAL);
         menu.add(createTab(VaadinIcon.ABACUS, "Overview", IndexView.class));
+        Anchor a = new Anchor();
+        a.add(VaadinIcon.EXIT.create());
+        a.add("Logout");
+        a.setHref("/logout");
+        Tab tab = new Tab();
+        tab.addThemeVariants(TabVariant.LUMO_ICON_ON_TOP);
+        tab.add(a);
+        menu.add(tab);
 
         Image img = new Image("icons/lan-party-logo.png", "LanParty Logo");
         img.setHeight("44px");

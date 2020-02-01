@@ -1,40 +1,24 @@
 package com.deigon.lanpartypicker;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 
 @EnableWebSecurity
 @Configuration
 public class WebConfig extends WebSecurityConfigurerAdapter {
-
-    private static final String LOGIN_PROCESSING_URL = "/login";
-    private static final String LOGIN_FAILURE_URL = "/login?error";
-    private static final String LOGIN_URL = "/login";
-
-    private final UserDetailsService userDetailsService;
-    private PasswordEncoder passwordEncoder;
-
-    @Autowired
-    public WebConfig(UserDetailsService userDetailsService, PasswordEncoder passwordEncoder) {
-        this.userDetailsService = userDetailsService;
-        this.passwordEncoder = passwordEncoder;
-    }
 
     /**
      * Registers our UserDetailsService and the password encoder to be used on login attempts.
      */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        super.configure(auth);
-        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
+        auth.inMemoryAuthentication()
+                .withUser("admin").password("{noop}p").roles("ADMIN").and()
+                .withUser("user").password("{noop}p").roles("USER");
     }
 
     /**
@@ -42,23 +26,10 @@ public class WebConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        // Not using Spring CSRF here to be able to use plain HTML for the login page
         http.csrf().disable()
-                .authorizeRequests()
-
-                // Allow all requests by logged in users.
-                .anyRequest().permitAll()
-
-                // Configure the login page.
-                .and().formLogin().loginPage(LOGIN_URL).permitAll().loginProcessingUrl(LOGIN_PROCESSING_URL)
-                .failureUrl(LOGIN_FAILURE_URL)
-
-                // Register the success handler that redirects users to the page they last tried
-                // to access
-                .successHandler(new SavedRequestAwareAuthenticationSuccessHandler())
-
-                // Configure logout
-                .and().logout().logoutSuccessUrl(LOGIN_URL);
+                .authorizeRequests().anyRequest().authenticated().and()
+                .formLogin().permitAll().and()
+                .logout().logoutUrl("/logout").logoutSuccessUrl("/login").permitAll();
     }
 
     /**
@@ -67,34 +38,19 @@ public class WebConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) {
         web.ignoring().antMatchers(
-                // Vaadin Flow static resources
                 "/VAADIN/**",
-
-                // the standard favicon URI
                 "/favicon.ico",
-
-                // the robots exclusion standard
                 "/robots.txt",
-
-                // web application manifest
                 "/manifest.webmanifest",
                 "/sw.js",
                 "/offline-page.html",
-
-                // icons and images
                 "/icons/**",
                 "/images/**",
-
-                // (development mode) static resources
+                "/css/**",
+                "/templates/**",
                 "/frontend/**",
-
-                // (development mode) webjars
                 "/webjars/**",
-
-                // (development mode) H2 debugging console
                 "/h2-console/**",
-
-                // (production mode) static resources
                 "/frontend-es5/**", "/frontend-es6/**");
     }
 }
