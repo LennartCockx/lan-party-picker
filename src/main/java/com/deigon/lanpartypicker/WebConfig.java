@@ -1,11 +1,9 @@
 package com.deigon.lanpartypicker;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
@@ -13,27 +11,46 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @Configuration
 public class WebConfig extends WebSecurityConfigurerAdapter {
 
-    @Bean(name = BeanIds.AUTHENTICATION_MANAGER)
+    /**
+     * Registers our UserDetailsService and the password encoder to be used on login attempts.
+     */
     @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.inMemoryAuthentication()
+                .withUser("admin").password("{noop}p").roles("ADMIN").and()
+                .withUser("user").password("{noop}p").roles("USER");
     }
 
+    /**
+     * Require login to access internal pages and configure login form.
+     */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
-                .authorizeRequests()
-                .anyRequest().permitAll();
+                .authorizeRequests().anyRequest().authenticated().and()
+                .formLogin().permitAll().and()
+                .logout().logoutUrl("/logout").logoutSuccessUrl("/login").permitAll();
     }
 
+    /**
+     * Allows access to static resources, bypassing Spring security.
+     */
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth
-                // enable in memory based authentication with a user named
-                // "user" and "admin"
-                .inMemoryAuthentication()
-                .withUser("user").password("{noop}password").roles("USER").and()
-                .withUser("admin").password("{noop}password").roles("USER", "ADMIN").and()
-                .withUser("Thomas Meyers").password("{noop}password").roles("USER");
+    public void configure(WebSecurity web) {
+        web.ignoring().antMatchers(
+                "/VAADIN/**",
+                "/favicon.ico",
+                "/robots.txt",
+                "/manifest.webmanifest",
+                "/sw.js",
+                "/offline-page.html",
+                "/icons/**",
+                "/images/**",
+                "/css/**",
+                "/templates/**",
+                "/frontend/**",
+                "/webjars/**",
+                "/h2-console/**",
+                "/frontend-es5/**", "/frontend-es6/**");
     }
 }
