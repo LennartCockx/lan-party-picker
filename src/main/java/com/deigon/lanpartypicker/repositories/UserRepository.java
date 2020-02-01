@@ -1,32 +1,31 @@
 package com.deigon.lanpartypicker.repositories;
 
-import com.deigon.lanpartypicker.domain.LanParty;
-import com.deigon.lanpartypicker.domain.LanPartyBuilder;
-import com.deigon.lanpartypicker.domain.LanPartyUser;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.UUID;
 
 @Repository
 public class UserRepository {
 
-    private List<LanPartyUser> users;
+    private List<User> users;
 
     public UserRepository() {
-        LanPartyUser lennart_cockx = new LanPartyUser("Lennart Cockx");
-        LanPartyUser tim_clinckemalie = new LanPartyUser("Tim Clinckemalie");
-        LanPartyUser thomas_meyers = new LanPartyUser("Thomas Meyers");
+        List<SimpleGrantedAuthority> grantedAuthorities = List.of(new SimpleGrantedAuthority("USER"));
+        User lennart_cockx = new User("Lennart Cockx","password", grantedAuthorities);
+        User tim_clinckemalie = new User("Tim Clinckemalie","password", grantedAuthorities);
+        User thomas_meyers = new User("Thomas Meyers","password", grantedAuthorities);
 
         this.users =  List.of(lennart_cockx, tim_clinckemalie, thomas_meyers);
     }
 
-    public List<LanPartyUser> getAllUsers(){
+    public List<User> getAllUsers(){
         return this.users;
     }
 
-    public LanPartyUser getUserByName(String name) {
-        for (LanPartyUser user : this.users) {
+    public User getUserByName(String name) {
+        for (User user : this.users) {
             if (user.getUsername().equals(name)){
                 return user;
             }
