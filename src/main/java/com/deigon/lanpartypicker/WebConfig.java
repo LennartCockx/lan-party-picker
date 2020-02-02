@@ -1,11 +1,13 @@
 package com.deigon.lanpartypicker;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 
 @EnableWebSecurity
 @Configuration
@@ -14,12 +16,17 @@ public class WebConfig extends WebSecurityConfigurerAdapter {
     /**
      * Registers our UserDetailsService and the password encoder to be used on login attempts.
      */
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("admin").password("{noop}p").roles("ADMIN").and()
-                .withUser("user").password("{noop}p").roles("USER");
+    @SuppressWarnings("deprecation")
+    @Bean
+    public static NoOpPasswordEncoder passwordEncoder() {
+        return (NoOpPasswordEncoder) NoOpPasswordEncoder.getInstance();
     }
+//    @Override
+//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        auth.inMemoryAuthentication()
+//                .withUser("admin").password("{noop}p").roles("ADMIN").and()
+//                .withUser("user").password("{noop}p").roles("USER");
+//    }
 
     /**
      * Require login to access internal pages and configure login form.

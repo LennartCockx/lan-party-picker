@@ -9,6 +9,7 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Set;
 
 public class DayBlock extends FullWidthDiv {
     private final HorizontalLayout horizontalLayout;
@@ -16,7 +17,7 @@ public class DayBlock extends FullWidthDiv {
     private LocalDate day;
     private VerticalLayout verticalLayout;
 
-    public DayBlock(LocalDate localDate, List<String> chosen) {
+    public DayBlock(LocalDate localDate, Set<String> chosen) {
         this.day = localDate;
         LargeTitle day = new LargeTitle(Integer.toString(localDate.getDayOfMonth()));
         verticalLayout = new VerticalLayout();
@@ -30,7 +31,7 @@ public class DayBlock extends FullWidthDiv {
         setClassName("ripple hover");
     }
 
-    public void updateChosen(List<String> chosen){
+    public void updateChosen(Set<String> chosen){
         horizontalLayout.remove(verticalLayout);
         verticalLayout = new VerticalLayout();
         chosen.forEach((person)-> verticalLayout.add(new UserCharm(person)));

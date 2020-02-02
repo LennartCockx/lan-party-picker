@@ -13,7 +13,7 @@ public class DateSelection extends FullWidthDiv {
 
     private final DateGrid dateGrid;
 
-    public DateSelection(HashMap<LocalDate, Set<User>> selectedDates) {
+    public DateSelection(HashMap<LocalDate, Set<String>> selectedDates) {
         add(new LargeTitle("Date Selection"));
         dateGrid = new DateGrid(selectedDates);
 

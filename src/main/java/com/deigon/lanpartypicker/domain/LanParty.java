@@ -1,15 +1,14 @@
 package com.deigon.lanpartypicker.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.vaadin.flow.component.html.Image;
 import org.springframework.security.core.userdetails.User;
 
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 public class LanParty {
 
@@ -18,7 +17,7 @@ public class LanParty {
     private LocalDate date;
     private Image image;
     private String description;
-    private HashMap<LocalDate, Set<User>> usersAvailableForDate = new HashMap<>();
+    private HashMap<LocalDate, Set<String>> usersAvailableForDate = new HashMap<>();
 
     public String getName() {
         return name;
@@ -36,6 +35,7 @@ public class LanParty {
         this.date = date;
     }
 
+    @JsonIgnore
     public Image getImage() {
         if (this.image == null){
             Image defaultImage = new Image("icons/lan-party-logo.png", "LanParty Logo");
@@ -58,6 +58,7 @@ public class LanParty {
         return description;
     }
 
+    @JsonIgnore
     public Image getImageSmall() {
         Image image = getImage();
         image.setSizeUndefined();
@@ -73,35 +74,36 @@ public class LanParty {
         this.uuid = uuid;
     }
 
-    public void addUserForDate(LocalDate day, User lanPartyUser) {
+    public void addUserForDate(LocalDate day, LanPartyUser lanPartyUser) {
         if (usersAvailableForDate.containsKey(day)){
-            usersAvailableForDate.get(day).add(lanPartyUser);
+            usersAvailableForDate.get(day).add(lanPartyUser.getFullname());
         } else {
-            HashSet<User> users = new HashSet<>();
-            users.add(lanPartyUser);
+            HashSet<String> users = new HashSet<>();
+            users.add(lanPartyUser.getFullname());
             usersAvailableForDate.put(day, users);
         }
     }
 
-    public void removeUserForDate(LocalDate day, User user) {
+    public void removeUserForDate(LocalDate day, LanPartyUser user) {
         if (usersAvailableForDate.containsKey(day)){
-            usersAvailableForDate.get(day).remove(user);
+            usersAvailableForDate.get(day).remove(user.getFullname());
             if (usersAvailableForDate.get(day).isEmpty()){
                 usersAvailableForDate.remove(day);
             }
         }
     }
 
-    public HashMap<LocalDate, Set<User>> getUsersAvailableForDate() {
+    public HashMap<LocalDate, Set<String>> getUsersAvailableForDate() {
         return usersAvailableForDate;
     }
 
-    public List<String> getNamesForDate(LocalDate day) {
-        Set<User> lanPartyUsers = usersAvailableForDate.get(day);
+    @JsonIgnore
+    public Set<String> getNamesForDate(LocalDate day) {
+        Set<String> lanPartyUsers = usersAvailableForDate.get(day);
         if (lanPartyUsers ==null){
             lanPartyUsers = new HashSet<>();
         }
 
-        return lanPartyUsers.stream().map(User::getUsername).collect(Collectors.toList());
+        return lanPartyUsers;
     }
 }
